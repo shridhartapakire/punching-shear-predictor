@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PunchAI — Punching Shear Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- INTRO ANIMATION OVERLAY -->
+  <div id="intro-overlay">
+    <canvas id="intro-canvas"></canvas>
+    <div class="intro-content">
+      <div class="intro-scan-line"></div>
+      <div class="intro-logo-mark">
+        <svg viewBox="0 0 80 80" width="80" height="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="60" height="60" stroke="#00D1FF" stroke-width="1" stroke-dasharray="4 2" opacity="0.4"/>
+          <rect x="25" y="25" width="30" height="30" fill="#00D1FF" opacity="0.15" stroke="#00D1FF" stroke-width="1.5"/>
+          <line x1="40" y1="0" x2="40" y2="80" stroke="#00D1FF" stroke-width="0.5" opacity="0.3"/>
+          <line x1="0" y1="40" x2="80" y2="40" stroke="#00D1FF" stroke-width="0.5" opacity="0.3"/>
+          <circle cx="40" cy="40" r="6" fill="#00D1FF" opacity="0.9"/>
+          <circle cx="40" cy="40" r="14" stroke="#00D1FF" stroke-width="1" opacity="0.5"/>
+          <circle cx="40" cy="40" r="22" stroke="#00D1FF" stroke-width="0.5" opacity="0.25"/>
+          <line x1="25" y1="25" x2="10" y2="10" stroke="#00D1FF" stroke-width="1" opacity="0.6"/>
+          <line x1="55" y1="25" x2="70" y2="10" stroke="#00D1FF" stroke-width="1" opacity="0.6"/>
+          <line x1="25" y1="55" x2="10" y2="70" stroke="#00D1FF" stroke-width="1" opacity="0.6"/>
+          <line x1="55" y1="55" x2="70" y2="70" stroke="#00D1FF" stroke-width="1" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="intro-text-block">
+        <div class="intro-label">CIVIL ENGINEERING · AI ANALYSIS</div>
+        <h1 class="intro-title">AI Structural<br/><span>Analysis</span></h1>
+        <p class="intro-subtitle">Punching Shear Predictor</p>
+        <div class="intro-bar"><div class="intro-bar-fill"></div></div>
+        <div class="intro-status">Initializing ML Engine<span class="blink">_</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+          <rect x="4" y="4" width="24" height="24" stroke="#00D1FF" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.5"/>
+          <rect x="10" y="10" width="12" height="12" fill="#00D1FF" opacity="0.2" stroke="#00D1FF" stroke-width="1.5"/>
+          <circle cx="16" cy="16" r="3" fill="#00D1FF"/>
+        </svg>
+        <span>PunchAI</span>
+      </a>
+      <div class="nav-toggle" id="nav-toggle">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#predictor">Predictor</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#workflow">Workflow</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#predictor" class="nav-cta">Analysis Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-container">
+      <div class="hero-left" data-animate="fade-up">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          ML-Powered · RC Flat Slab Analysis
+        </div>
+        <h1 class="hero-title">
+          Punching<br/>
+          <span class="gradient-text">Shear</span><br/>
+          Predictor
+        </h1>
+        <p class="hero-desc">
+          An AI-powered structural engineering tool that predicts punching shear capacity, stress ratios, and safety classification for reinforced concrete flat slabs — instantly.
+        </p>
+        <div class="hero-btns">
+          <a href="#predictor" class="btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Run Prediction
+          </a>
+          <a href="#about" class="btn-ghost">Learn More</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hstat"><span class="hstat-val">IS 456</span><span class="hstat-label">Code Based</span></div>
+          <div class="hstat-div"></div>
+          <div class="hstat"><span class="hstat-val">±2%</span><span class="hstat-label">Error Margin</span></div>
+          <div class="hstat-div"></div>
+          <div class="hstat"><span class="hstat-val">&lt;1s</span><span class="hstat-label">Prediction</span></div>
+        </div>
+      </div>
+      <div class="hero-right" data-animate="fade-left">
+        <div class="hero-visual">
+          <div class="hero-visual-rings">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+          </div>
+          <svg class="slab-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Slab body -->
+            <rect x="60" y="140" width="280" height="55" fill="url(#slabGrad)" rx="4" stroke="#00D1FF" stroke-width="1.5" opacity="0.9"/>
+            <!-- Column -->
+            <rect x="170" y="195" width="60" height="100" fill="url(#colGrad)" stroke="#00D1FF" stroke-width="1.5" opacity="0.8"/>
+            <!-- Critical perimeter dashed -->
+            <rect x="140" y="120" width="120" height="100" stroke="#FF7E36" stroke-width="1.5" stroke-dasharray="6 3" fill="none" rx="2" opacity="0.85"/>
+            <!-- Cracks from corners -->
+            <line x1="140" y1="195" x2="115" y2="215" stroke="#FF7E36" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
+            <line x1="260" y1="195" x2="285" y2="215" stroke="#FF7E36" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
+            <line x1="140" y1="140" x2="115" y2="120" stroke="#FF7E36" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
+            <line x1="260" y1="140" x2="285" y2="120" stroke="#FF7E36" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
+            <!-- Load arrow -->
+            <line x1="200" y1="60" x2="200" y2="135" stroke="#00D1FF" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr)" opacity="0.9"/>
+            <!-- Labels -->
+            <text x="205" y="55" fill="#00D1FF" font-family="JetBrains Mono" font-size="11" opacity="0.9">Vu (Load)</text>
+            <text x="265" y="160" fill="#FF7E36" font-family="JetBrains Mono" font-size="10" opacity="0.85">b₀ Perimeter</text>
+            <text x="178" y="252" fill="#AFC3C3" font-family="JetBrains Mono" font-size="10" opacity="0.8">Column</text>
+            <text x="62" y="168" fill="#AFC3C3" font-family="JetBrains Mono" font-size="10" opacity="0.8">Flat Slab</text>
+            <!-- d marker -->
+            <line x1="50" y1="140" x2="50" y2="195" stroke="#00D1FF" stroke-width="1" opacity="0.6"/>
+            <line x1="45" y1="140" x2="55" y2="140" stroke="#00D1FF" stroke-width="1" opacity="0.6"/>
+            <line x1="45" y1="195" x2="55" y2="195" stroke="#00D1FF" stroke-width="1" opacity="0.6"/>
+            <text x="24" y="172" fill="#00D1FF" font-family="JetBrains Mono" font-size="10" opacity="0.8">d</text>
+            <!-- Scanning line -->
+            <line x1="60" y1="167" x2="340" y2="167" stroke="#00D1FF" stroke-width="0.8" opacity="0.3" stroke-dasharray="3 2" class="scan-anim"/>
+            <!-- Defs -->
+            <defs>
+              <linearGradient id="slabGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1a3a4a"/>
+                <stop offset="100%" stop-color="#0d2233"/>
+              </linearGradient>
+              <linearGradient id="colGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#1a3a4a"/>
+                <stop offset="100%" stop-color="#0d2233"/>
+              </linearGradient>
+              <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#00D1FF"/>
+              </marker>
+            </defs>
+          </svg>
+          <div class="hero-data-chips">
+            <div class="data-chip chip-tl">d = 150 mm</div>
+            <div class="data-chip chip-tr">fck = 30 MPa</div>
+            <div class="data-chip chip-bl">b₀ = 1800 mm</div>
+            <div class="data-chip chip-br unsafe-chip">UNSAFE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- FEATURE STATS SECTION -->
+  <section id="features" class="section-pad">
+    <div class="container">
+      <div class="section-tag">CAPABILITIES</div>
+      <h2 class="section-title">Built for Structural Engineers</h2>
+      <div class="features-grid">
+        <div class="feat-card" data-animate="fade-up">
+          <div class="feat-icon">
+            <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+              <circle cx="20" cy="20" r="18" stroke="#00D1FF" stroke-width="1.5" opacity="0.4"/>
+              <path d="M10 26 L16 18 L21 22 L27 14 L30 18" stroke="#00D1FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="30" cy="14" r="2.5" fill="#00D1FF"/>
+            </svg>
+          </div>
+          <h3>AI Powered</h3>
+          <p>Machine learning model trained on IS 456 formulations for accurate structural predictions.</p>
+          <div class="feat-glow"></div>
+        </div>
+        <div class="feat-card" data-animate="fade-up" style="animation-delay:.1s">
+          <div class="feat-icon">
+            <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+              <circle cx="20" cy="20" r="18" stroke="#00D1FF" stroke-width="1.5" opacity="0.4"/>
+              <path d="M12 20 L17 25 L28 14" stroke="#00D1FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>High Accuracy</h3>
+          <p>Validates against IS 456:2000 code provisions with less than ±2% margin of error.</p>
+          <div class="feat-glow"></div>
+        </div>
+        <div class="feat-card" data-animate="fade-up" style="animation-delay:.2s">
+          <div class="feat-icon">
+            <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+              <circle cx="20" cy="20" r="18" stroke="#00D1FF" stroke-width="1.5" opacity="0.4"/>
+              <circle cx="20" cy="20" r="6" stroke="#00D1FF" stroke-width="1.5"/>
+              <line x1="20" y1="8" x2="20" y2="14" stroke="#00D1FF" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="20" y1="26" x2="20" y2="32" stroke="#00D1FF" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="8" y1="20" x2="14" y2="20" stroke="#00D1FF" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="26" y1="20" x2="32" y2="20" stroke="#00D1FF" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Real-Time</h3>
+          <p>Instant predictions — no backend required. Results computed client-side in under 1 second.</p>
+          <div class="feat-glow"></div>
+        </div>
+        <div class="feat-card" data-animate="fade-up" style="animation-delay:.3s">
+          <div class="feat-icon">
+            <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+              <circle cx="20" cy="20" r="18" stroke="#00D1FF" stroke-width="1.5" opacity="0.4"/>
+              <path d="M14 22 L20 14 L26 22" stroke="#00D1FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="20" y1="14" x2="20" y2="28" stroke="#00D1FF" stroke-width="1.5" stroke-linecap="round"/>
+              <rect x="12" y="28" width="16" height="3" rx="1" fill="#00D1FF" opacity="0.6"/>
+            </svg>
+          </div>
+          <h3>Structural Safety</h3>
+          <p>Clear SAFE / UNSAFE classification with stress ratios and critical perimeter output.</p>
+          <div class="feat-glow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUNCHING SHEAR CONCEPT -->
+  <section id="about" class="section-pad">
+    <div class="container">
+      <div class="section-tag">CONCEPT</div>
+      <h2 class="section-title">What is Punching Shear?</h2>
+      <div class="concept-grid">
+        <div class="concept-text" data-animate="fade-right">
+          <div class="concept-block">
+            <div class="concept-num">01</div>
+            <div>
+              <h3>The Failure Mode</h3>
+              <p>Punching shear is a structural failure where a concentrated load causes a column to punch through a flat slab, creating a cone-shaped fracture zone around the column perimeter — without prior visible warning.</p>
+            </div>
+          </div>
+          <div class="concept-block">
+            <div class="concept-num">02</div>
+            <div>
+              <h3>Why It Occurs</h3>
+              <p>When the punching shear stress (vu) acting over the critical perimeter exceeds the permissible shear stress (vc) of concrete, the slab fails. This is especially critical in flat slab buildings without drop panels or shear heads.</p>
+            </div>
+          </div>
+          <div class="concept-block">
+            <div class="concept-num">03</div>
+            <div>
+              <h3>Structural Safety Importance</h3>
+              <p>Punching shear failures are catastrophic and sudden. IS 456:2000 mandates checking vu ≤ vc = 0.25√fck for all flat slab column connections. This tool automates that check with precision.</p>
+            </div>
+          </div>
+        </div>
+        <div class="concept-visual" data-animate="fade-left">
+          <div class="concept-diagram">
+            <svg viewBox="0 0 360 360" width="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- 3D-look slab top -->
+              <ellipse cx="180" cy="100" rx="140" ry="30" fill="#0d2a3a" stroke="#00D1FF" stroke-width="1.2" opacity="0.8"/>
+              <!-- Slab sides -->
+              <path d="M40 100 L40 155 Q40 160 45 162 L180 195 L315 162 Q320 160 320 155 L320 100 Z" fill="#0b1f2e" stroke="#00D1FF" stroke-width="1" opacity="0.7"/>
+              <!-- Column -->
+              <rect x="155" y="155" width="50" height="120" fill="#091822" stroke="#00D1FF" stroke-width="1.5" opacity="0.85"/>
+              <!-- Crack cone left -->
+              <path d="M155 155 L110 195" stroke="#FF7E36" stroke-width="2" stroke-dasharray="5 2" opacity="0.9"/>
+              <!-- Crack cone right -->
+              <path d="M205 155 L250 195" stroke="#FF7E36" stroke-width="2" stroke-dasharray="5 2" opacity="0.9"/>
+              <!-- Critical perimeter top -->
+              <ellipse cx="180" cy="130" rx="60" ry="15" stroke="#FF7E36" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.75"/>
+              <!-- Load arrow -->
+              <line x1="180" y1="35" x2="180" y2="92" stroke="#00D1FF" stroke-width="2" stroke-dasharray="4 2" opacity="0.8"/>
+              <polygon points="175,90 185,90 180,100" fill="#00D1FF" opacity="0.9"/>
+              <!-- Labels -->
+              <text x="188" y="32" fill="#00D1FF" font-family="JetBrains Mono" font-size="10">Vu</text>
+              <text x="255" y="202" fill="#FF7E36" font-family="JetBrains Mono" font-size="9">Crack Zone</text>
+              <text x="248" y="130" fill="#FF7E36" font-family="JetBrains Mono" font-size="9">b₀</text>
+              <text x="160" y="220" fill="#AFC3C3" font-family="JetBrains Mono" font-size="9">Column</text>
+              <!-- Stress arrows -->
+              <line x1="130" y1="160" x2="110" y2="150" stroke="#00D1FF" stroke-width="1" opacity="0.5"/>
+              <line x1="230" y1="160" x2="250" y2="150" stroke="#00D1FF" stroke-width="1" opacity="0.5"/>
+              <text x="60" y="148" fill="#00D1FF" font-family="JetBrains Mono" font-size="9" opacity="0.7">τ</text>
+              <text x="254" y="148" fill="#00D1FF" font-family="JetBrains Mono" font-size="9" opacity="0.7">τ</text>
+              <!-- Formula -->
+              <rect x="15" y="280" width="330" height="60" rx="6" fill="#091a27" stroke="#00D1FF" stroke-width="0.8" opacity="0.6"/>
+              <text x="30" y="302" fill="#00D1FF" font-family="JetBrains Mono" font-size="10">vu = Vu / (b₀ × d)</text>
+              <text x="30" y="320" fill="#AFC3C3" font-family="JetBrains Mono" font-size="10">vc = 0.25 × √fck</text>
+              <text x="30" y="336" fill="#FF7E36" font-family="JetBrains Mono" font-size="10">UNSAFE if vu > vc</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW SECTION -->
+  <section id="workflow" class="section-pad">
+    <div class="container">
+      <div class="section-tag">PROCESS</div>
+      <h2 class="section-title">Prediction Workflow</h2>
+      <div class="workflow-steps">
+        <div class="wf-step" data-animate="fade-up">
+          <div class="wf-num">01</div>
+          <div class="wf-icon">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none">
+              <rect x="4" y="8" width="40" height="32" rx="4" stroke="#00D1FF" stroke-width="1.5"/>
+              <line x1="12" y1="16" x2="36" y2="16" stroke="#00D1FF" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+              <line x1="12" y1="22" x2="28" y2="22" stroke="#00D1FF" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+              <line x1="12" y1="28" x2="32" y2="28" stroke="#00D1FF" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+            </svg>
+          </div>
+          <h3>Input Parameters</h3>
+          <p>Enter slab thickness, effective depth, column size, factored load, and concrete grade.</p>
+        </div>
+        <div class="wf-connector">
+          <div class="wf-line"></div>
+          <div class="wf-arrow">▶</div>
+        </div>
+        <div class="wf-step" data-animate="fade-up" style="animation-delay:.15s">
+          <div class="wf-num">02</div>
+          <div class="wf-icon">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none">
+              <circle cx="24" cy="24" r="18" stroke="#00D1FF" stroke-width="1.5"/>
+              <path d="M14 28 L19 20 L24 24 L29 16 L34 20" stroke="#00D1FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>ML Prediction</h3>
+          <p>The engine computes critical perimeter, punching shear stress, and permissible stress using IS 456 formulas.</p>
+        </div>
+        <div class="wf-connector">
+          <div class="wf-line"></div>
+          <div class="wf-arrow">▶</div>
+        </div>
+        <div class="wf-step" data-animate="fade-up" style="animation-delay:.3s">
+          <div class="wf-num">03</div>
+          <div class="wf-icon">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none">
+              <path d="M24 6 L44 16 L44 32 Q44 42 24 46 Q4 42 4 32 L4 16 Z" stroke="#00D1FF" stroke-width="1.5"/>
+              <path d="M16 24 L21 29 L32 18" stroke="#00D1FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Safety Analysis</h3>
+          <p>Compares vu vs vc and outputs SAFE or UNSAFE classification with full stress breakdown.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREDICTION DASHBOARD -->
+  <section id="predictor" class="section-pad">
+    <div class="container">
+      <div class="section-tag">DASHBOARD</div>
+      <h2 class="section-title">Run Your Prediction</h2>
+      <p class="section-sub">Enter the slab parameters below and get an instant structural safety verdict.</p>
+      <div class="dashboard-grid">
+        <!-- INPUT CARD -->
+        <div class="dash-card input-card" data-animate="fade-right">
+          <div class="dash-card-header">
+            <span class="dash-card-label">INPUT PARAMETERS</span>
+            <div class="dash-card-dot"></div>
+          </div>
+          <div class="input-fields">
+            <div class="field-group">
+              <label for="h">Slab Thickness <span class="unit">h (mm)</span></label>
+              <div class="input-wrap">
+                <input type="number" id="h" placeholder="e.g. 180" min="50" max="1000" />
+                <span class="input-unit">mm</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="d">Effective Depth <span class="unit">d (mm)</span></label>
+              <div class="input-wrap">
+                <input type="number" id="d" placeholder="e.g. 150" min="30" max="900" />
+                <span class="input-unit">mm</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="c">Column Size <span class="unit">c (mm)</span></label>
+              <div class="input-wrap">
+                <input type="number" id="c" placeholder="e.g. 300" min="100" max="1200" />
+                <span class="input-unit">mm</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="vu">Factored Load <span class="unit">Vu (kN)</span></label>
+              <div class="input-wrap">
+                <input type="number" id="vu" placeholder="e.g. 450" min="1" max="10000" />
+                <span class="input-unit">kN</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="fck">Concrete Grade <span class="unit">fck (MPa)</span></label>
+              <div class="input-wrap">
+                <select id="fck">
+                  <option value="">Select Grade</option>
+                  <option value="20">M20 — 20 MPa</option>
+                  <option value="25">M25 — 25 MPa</option>
+                  <option value="30" selected>M30 — 30 MPa</option>
+                  <option value="35">M35 — 35 MPa</option>
+                  <option value="40">M40 — 40 MPa</option>
+                  <option value="45">M45 — 45 MPa</option>
+                  <option value="50">M50 — 50 MPa</option>
+                </select>
+                <span class="input-unit">MPa</span>
+              </div>
+            </div>
+          </div>
+          <div class="input-actions">
+            <button class="btn-predict" id="predict-btn" onclick="predict()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Predict Safety
+            </button>
+            <button class="btn-reset" onclick="resetForm()">Reset</button>
+          </div>
+          <div class="sample-btn-wrap">
+            <button class="btn-sample" onclick="loadSample()">Load Sample Data</button>
+          </div>
+        </div>
+
+        <!-- RESULT CARD -->
+        <div class="dash-card result-card" id="result-card" data-animate="fade-left">
+          <div class="dash-card-header">
+            <span class="dash-card-label">ANALYSIS RESULTS</span>
+            <div class="dash-card-dot"></div>
+          </div>
+          <div class="result-empty" id="result-empty">
+            <svg viewBox="0 0 80 80" width="64" height="64" fill="none">
+              <circle cx="40" cy="40" r="35" stroke="#1a3a4a" stroke-width="1.5"/>
+              <circle cx="40" cy="40" r="20" stroke="#1a3a4a" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <circle cx="40" cy="40" r="5" fill="#1a3a4a"/>
+            </svg>
+            <p>Enter parameters and click<br/><strong>Predict Safety</strong> to view results.</p>
+          </div>
+          <div class="result-data" id="result-data" style="display:none">
+            <div class="verdict-badge" id="verdict-badge">
+              <span id="verdict-text">SAFE</span>
+            </div>
+            <div class="result-metrics">
+              <div class="metric-row">
+                <span class="metric-label">Critical Perimeter (b₀)</span>
+                <span class="metric-val" id="res-b0">— mm</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Punching Shear Stress (vu)</span>
+                <span class="metric-val" id="res-vu">— N/mm²</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Permissible Stress (vc)</span>
+                <span class="metric-val" id="res-vc">— N/mm²</span>
+              </div>
+              <div class="metric-row highlight-row">
+                <span class="metric-label">Stress Ratio (vu/vc)</span>
+                <span class="metric-val" id="res-ratio">—</span>
+              </div>
+            </div>
+            <div class="stress-bar-wrap">
+              <div class="stress-bar-labels">
+                <span>Stress Level</span>
+                <span id="bar-pct">0%</span>
+              </div>
+              <div class="stress-bar-track">
+                <div class="stress-bar-fill" id="stress-bar-fill"></div>
+                <div class="stress-bar-limit" id="stress-bar-limit"></div>
+              </div>
+              <div class="stress-bar-legend">
+                <span><span class="legend-dot cyan"></span> vu (applied)</span>
+                <span><span class="legend-dot orange"></span> vc (limit)</span>
+              </div>
+            </div>
+            <div class="result-formula">
+              <div class="formula-line" id="formula-line">—</div>
+            </div>
+          </div>
+          <div class="result-error" id="result-error" style="display:none">
+            <p id="error-msg">Please fill all fields correctly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM SECTION -->
+  <section id="team" class="section-pad">
+    <div class="container">
+      <div class="section-tag">TEAM</div>
+      <h2 class="section-title">The People Behind It</h2>
+      <div class="team-info-bar">
+        <div class="team-info-item">
+          <span class="ti-label">Department</span>
+          <span class="ti-val">Civil Engineering</span>
+        </div>
+        <div class="team-info-div"></div>
+        <div class="team-info-item">
+          <span class="ti-label">College</span>
+          <span class="ti-val">Gogte Institute of Technology</span>
+        </div>
+        <div class="team-info-div"></div>
+        <div class="team-info-item">
+          <span class="ti-label">Academic Year</span>
+          <span class="ti-val">2023–2027</span>
+        </div>
+      </div>
+      <div class="team-grid">
+        <div class="team-card" data-animate="fade-up">
+          <div class="team-avatar">
+            <div class="avatar-ring"></div>
+            <svg viewBox="0 0 60 60" width="60" height="60" fill="none">
+              <circle cx="30" cy="22" r="10" stroke="#00D1FF" stroke-width="1.5" fill="#0b1e2e"/>
+              <path d="M12 52 Q12 36 30 36 Q48 36 48 52" stroke="#00D1FF" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="team-info">
+            <h4>Rajat Khot</h4>
+            <span class="team-roll">2GI24CV425</span>
+          </div>
+        </div>
+        <div class="team-card" data-animate="fade-up" style="animation-delay:.1s">
+          <div class="team-avatar">
+            <div class="avatar-ring"></div>
+            <svg viewBox="0 0 60 60" width="60" height="60" fill="none">
+              <circle cx="30" cy="22" r="10" stroke="#00D1FF" stroke-width="1.5" fill="#0b1e2e"/>
+              <path d="M12 52 Q12 36 30 36 Q48 36 48 52" stroke="#00D1FF" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="team-info">
+            <h4>Rahul Rathod</h4>
+            <span class="team-roll">2GI24CV424</span>
+          </div>
+        </div>
+        
+        <div class="team-card guide-card" data-animate="fade-up" style="animation-delay:.3s">
+          <div class="team-avatar">
+            <div class="avatar-ring guide-ring"></div>
+            <svg viewBox="0 0 60 60" width="60" height="60" fill="none">
+              <circle cx="30" cy="22" r="10" stroke="#FF7E36" stroke-width="1.5" fill="#1a1208"/>
+              <path d="M12 52 Q12 36 30 36 Q48 36 48 52" stroke="#FF7E36" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="team-info">
+            <h4>Prof. Sujay Deshpande</h4>
+            <p>Project Guide</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="section-pad">
+    <div class="container">
+      <div class="section-tag">CONTACT</div>
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="contact-grid">
+        <div class="contact-card" data-animate="fade-up">
+          <div class="contact-icon">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="none">
+              <path d="M4 8 L16 17 L28 8" stroke="#00D1FF" stroke-width="1.5" stroke-linecap="round"/>
+              <rect x="4" y="8" width="24" height="18" rx="3" stroke="#00D1FF" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="contact-detail">
+            <span class="cl">Email</span>
+            <span class="cv">24I0218@students.git.edu</span>
+          </div>
+        </div>
+        <div class="contact-card" data-animate="fade-up" style="animation-delay:.1s">
+          <div class="contact-icon">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="none">
+              <path d="M16 4 Q26 4 26 12 Q26 22 16 28 Q6 22 6 12 Q6 4 16 4 Z" stroke="#00D1FF" stroke-width="1.5"/>
+              <circle cx="16" cy="13" r="4" stroke="#00D1FF" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="contact-detail">
+            <span class="cl">Location</span>
+            <span class="cv">Department of Civil Engineering, Gogte Institute of Technology Campus</span>
+          </div>
+        </div>
+        <div class="contact-card" data-animate="fade-up" style="animation-delay:.2s">
+          <div class="contact-icon">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="none">
+              <rect x="4" y="6" width="24" height="20" rx="3" stroke="#00D1FF" stroke-width="1.5"/>
+              <line x1="4" y1="12" x2="28" y2="12" stroke="#00D1FF" stroke-width="1.5"/>
+              <circle cx="10" cy="9" r="1.5" fill="#00D1FF" opacity="0.6"/>
+              <circle cx="16" cy="9" r="1.5" fill="#00D1FF" opacity="0.6"/>
+            </svg>
+          </div>
+          <div class="contact-detail">
+            <span class="cl">Project Type</span>
+            <span class="cv">Inter disciplinary course project</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-grid-bg"></div>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo footer-logo">
+            <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+              <rect x="4" y="4" width="24" height="24" stroke="#00D1FF" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.5"/>
+              <rect x="10" y="10" width="12" height="12" fill="#00D1FF" opacity="0.2" stroke="#00D1FF" stroke-width="1.5"/>
+              <circle cx="16" cy="16" r="3" fill="#00D1FF"/>
+            </svg>
+            <span>PunchAI</span>
+          </a>
+          <p>Machine Learning Model for Predicting Punching Shear Capacity of RC Flat Slabs.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="GitHub" class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="Email" class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links-block">
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About Project</a></li>
+            <li><a href="#predictor">Predictor</a></li>
+            <li><a href="#workflow">Workflow</a></li>
+            <li><a href="#team">Team</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-block">
+          <h5>Formulas (IS 456)</h5>
+          <ul class="formula-list">
+            <li>b₀ = 4 × (c + d)</li>
+            <li>vu = Vu / (b₀ × d)</li>
+            <li>vc = 0.25 × √fck</li>
+            <li>UNSAFE: vu > vc</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 PunchAI — Final Year Project, Department of Civil Engineering.</p>
+        <p>Built for academic purposes. All formulas as per IS 456:2000.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
